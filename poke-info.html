@@ -1,0 +1,54 @@
+<div class="container bg-light rounded my-3 py-3">
+  <div class="container">
+    <div class="row ">
+      <div class="col">
+        <button type="button" class="btn btn-danger" ng-click="randomPoke()">Random</button>
+      </div>
+      <div class="col mr-5">
+        <form class="form-inline" name="searchPokemon" ng-submit="searchPoke(pokemonId)">
+          <div class="form-group mr-4 mb-2">
+            <label for="searchPokeField" class="sr-only">Pokemon Name/id:</label>
+            <input type="search" required placeholder="bulbasaur" class="form-control" id="searchPokeField" ng-model="pokemonId">
+            <input type="submit" class="btn btn-primary" value="Search">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="container" ng-show="pokemon">
+    <div> {{ error }} </div>
+    <u1 class="list-group">
+      <li class="list-group-item text-center">
+        <h3 class="bg-info text-white pt-1 pb-2 rounded">{{ pokemon.name | uppercase}} (#{{ pokemon.id }})</h3>
+        <img ng-src="{{ pokemon.sprites.front_default }}" title="{{ pokemon.name }}">
+      </li>
+      <li class="list-group-item"><strong>Type(s): </strong>
+        <span ng-repeat="atype in pokemon.types" class="d-inline px-2 pt-0 pb-1 m-1 rounded text-white {{atype.type.name}}">{{ atype.type.name }}</span>
+      </li>
+      <li class="list-group-item"><strong>Weight: </strong>{{ pokemon.weight/10 | number:1 }} kg </li>
+      <li class="list-group-item"><strong>Height: </strong>{{ pokemon.height/10 | number:1 }} m </li>
+      <li class="list-group-item">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <strong>Double damage FROM: </strong>
+              <ul>
+                <li ng-repeat="typeFrom in damageFrom | unique: 'name'" class="px-2 pt-0 pb-1">
+                  <span class="px-2 pt-0 pb-1 m-1 rounded text-white {{typeFrom.name}}">{{typeFrom.name}}</span>
+                </li>
+              </ul>
+            </div>
+            <div class="col border-left">
+              <strong>Double damage TO: </strong>
+              <ul>
+                <li ng-repeat="typeTo in damageTo | unique: 'name'" class="px-2 pt-0 pb-1">
+                  <span class="px-2 pt-0 pb-1 m-1 rounded text-white {{typeTo.name}}">{{typeTo.name}}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </li>
+    </u1>
+  </div>
+</div>
